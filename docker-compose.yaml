@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: justo_web
+    ports:
+      - 5000:5000
+    environment:
+      - ENVIRONMENT=production
+  
+  nginx:
+    build: ./nginx
+    container_name: justo_nginx
+    volumes:
+      - justo-static:/static
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+volumes:
+  justo-static:
